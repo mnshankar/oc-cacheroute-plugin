@@ -1,0 +1,57 @@
+<?php
+namespace SerenityNow\Cacheroute\Classes;
+
+use Illuminate\Http\Request as LaravelRequest;
+use SerenityNow\Cacheroute\Models\CacheRoute;
+use Closure;
+
+class RouteCacheMiddleware
+{
+    public function handle(LaravelRequest $request, Closure $next)
+    {
+        //bail if not in the table of routes to be cached
+        if (!($cacheRow = $this->shouldBeCached($request))) {
+            return $next($request);
+        }
+        $cacheKey = $this->getCacheKey($request->url());
+
+        if (\Cache::has($cacheKey)) {
+            return \Response::make($this->getCachedContent($request, \Cache::get($cacheKey)), 200);
+        }
+        $response = $next($request);
+        \Cache::put($cacheKey, $response->getContent(), $cacheRow['cache_ttl']);
+        return $response;
+    }
+
+    //add instrumentation to help with debug. Adding ?debug
+    //to a cached url will precede the content with "CACHED"
+    protected function getCachedContent($request, $content)
+    {
+        if ($request->exists('debug')) {
+            return '<p class="alert alert-info">CACHED</p>' . $content;
+        }
+        return $content;
+    }
+
+    //generate a cache key based on the url
+    protected function getCacheKey($url)
+    {
+        return 'SerenityNow.Cacheroute.' . str_slug($url);
+    }
+
+    protected function shouldBeCached($request)
+    {
+        $cacheRouteRows = \Cache::remember('SerenityNow.CacheRoute.AllCachedRoutes',
+            \Config::get('cms.urlCacheTtl'),
+            function () {
+                return CacheRoute::orderBy('sort_order')->get()->toArray();    //you can't cache eloquent models!
+            }
+        );
+        foreach ($cacheRouteRows as $cacheRow) {
+            if ($request->is($cacheRow['route_pattern'])) {
+                return $cacheRow;
+            }
+        }
+        return false;
+    }
+}
