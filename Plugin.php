@@ -10,12 +10,5 @@ class Plugin extends PluginBase
         $this->app['Illuminate\Contracts\Http\Kernel']
             ->pushMiddleware('SerenityNow\CacheRoute\Classes\RouteCacheMiddleware');
     }
-
-    public function registerComponents()
-    {
-    }
-
-    public function registerSettings()
-    {
-    }
+    
 }

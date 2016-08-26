@@ -9,8 +9,10 @@ class RouteCacheMiddleware
 {
     public function handle(LaravelRequest $request, Closure $next)
     {
-        //bail if not in the table of routes to be cached
-        if (!($cacheRow = $this->shouldBeCached($request))) {
+        //bail if table does not exist or
+        //route not in the list of routes to be cached
+        if (!\Schema::hasTable('serenitynow_cacheroute_routes')||
+            !($cacheRow = $this->shouldBeCached($request))) {
             return $next($request);
         }
         $cacheKey = $this->getCacheKey($request->url());
@@ -41,10 +43,10 @@ class RouteCacheMiddleware
 
     protected function shouldBeCached($request)
     {
-        $cacheRouteRows = \Cache::remember('SerenityNow.CacheRoute.AllCachedRoutes',
+        $cacheRouteRows = \Cache::remember('SerenityNow.Cacheroute.AllCachedRoutes',
             \Config::get('cms.urlCacheTtl'),
             function () {
-                return CacheRoute::orderBy('sort_order')->get()->toArray();    //you can't cache eloquent models!
+                return CacheRoute::orderBy('sort_order')->get()->toArray();
             }
         );
         foreach ($cacheRouteRows as $cacheRow) {
