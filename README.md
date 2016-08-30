@@ -28,11 +28,16 @@ uses "before" and "after" criteria to cache entire pages that match pattern(s) s
 2. Click on the __"Install plugins"__ option.
 3. Type __CacheRoute__ text in the search field, and pick the appropriate plugin.
 4. On your backend, under the "CacheRoute" menu, enter your route pattern(s) and corresponding cache ttl and sort order.
+5. Example:
+
+| Route Pattern   |      TTL      |  Sort Order |
+|-----------------|---------------|-------------|
+| resume 		  |  100		  | 1		    |
+| blog			  |  10			  | 2			|
+| blog/*		  |  10			  | 3			|
 
 ###Note
 * Be mindful of what you are caching! This approach works best for relatively static global content.
-* You can verify functionality by entering "?debug" to a cached url. You should see the text "CACHED" preceding the page content.
+* You can verify functionality by appending "?debug" to a cached url. You should see the text "CACHED" preceding the page content.
 * The cache key is a slug of the request url (without any get params) i.e. str_slug($request->url()) 
 * use php artisan cache:clear to clear your cache (remember to do this when adding new route patterns!)
-* The localization feature has been used so adapting to your locale should be relatively painless.. Do send in a pull request
-if you are interested.
