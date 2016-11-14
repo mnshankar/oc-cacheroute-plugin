@@ -35,11 +35,11 @@ class RouteCacheMiddleware
                 <div class="title" style="margin: -20px -30px 10px; background: #999; color: #fff; padding: 10px 30px; text-align: center;">CACHED CONTENT</div>
                 <span class="cache_key" style="display: inline-block; width: 100%; background: #fff; padding: 10px 10px 10px 0; margin-bottom: -10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     <span class="title" style="float: left; width:45px; color: #000; font-weight: bold; line-height: 30px;">URL: </span>
-                    <input class="value" style="float: left; width: calc(100% - 45px); border:1px solid #000; color: red; padding: 5px 7px; height: 30px; background: #eee" type="text" value="'.$request->url().'">
+                    <input readonly class="value" style="float: left; width: calc(100% - 45px); border:1px solid #000; color: red; padding: 5px 7px; height: 30px; background: #eee" type="text" value="'.$request->url().'">
                 </span>
                 <span class="cache_key" style="display: inline-block; width: 100%; background: #fff; color: red; padding: 10px 10px 10px 0; margin-bottom: -10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                     <span class="title" style="float: left; width:45px; color: #000; font-weight: bold; line-height: 30px;">KEY: </span>
-                    <input class="value" style="float: left; width: calc(100% - 45px); border:1px solid #000; color: red; padding: 5px 7px; height: 30px; background: #eee" type="text" value="'.$cacheKey.'">
+                    <input readonly class="value" style="float: left; width: calc(100% - 45px); border:1px solid #000; color: red; padding: 5px 7px; height: 30px; background: #eee" type="text" value="'.$cacheKey.'">
                 </span>
                 <hr style="border:none;">
                 <a href="'.$request->url().'" class="cancel" style="float: left; background: #aaa; color: #fff; padding: 10px 15px; margin-top: 20px; text-decoration: none;">Cancel</a>
