@@ -29,7 +29,7 @@ class RouteCacheMiddleware
     //to a cached url will precede the content with "CACHED"
     protected function getCachedContent($cacheKey, $request, $content)
     {
-        if ($request->exists('cache-info')) {
+        if ($request->exists('debug') || $request->exists('cache-info')) {
             return $content.'
             <div class="cache-notice" style="display: block; position: fixed; width: 50%; background: #fff; padding: 20px 30px 25px; left: 50%; border: 1px solid #aaa; margin-left: calc(-50% / 2); bottom: 10%; z-index: 500; box-shadow: 0 0 20px rgba(0,0,0,0.2); font-size: 16px; font-size: 1.6rem;">
                 <div class="title" style="margin: -20px -30px 10px; background: #999; color: #fff; padding: 10px 30px; text-align: center;">CACHED CONTENT</div>
