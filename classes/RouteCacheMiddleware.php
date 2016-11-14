@@ -33,13 +33,13 @@ class RouteCacheMiddleware
             return $content.'
             <div class="cache-notice" style="display: block; position: fixed; width: 50%; background: #fff; padding: 20px 30px 25px; left: 50%; border: 1px solid #aaa; margin-left: calc(-50% / 2); bottom: 10%; z-index: 500; box-shadow: 0 0 20px rgba(0,0,0,0.2); font-size: 16px; font-size: 1.6rem;">
                 <div class="title" style="margin: -20px -30px 10px; background: #999; color: #fff; padding: 10px 30px; text-align: center;">CACHED CONTENT</div>
-                <span class="cache_key" style="display: inline-block; width: 100%; background: #fff; color: red; padding: 10px 10px 10px 0; margin-bottom: -10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                    <span class="title" style="color: #000; font-weight: bold;">URL: </span>
-                    '.$request->url().'
+                <span class="cache_key" style="display: inline-block; width: 100%; background: #fff; padding: 10px 10px 10px 0; margin-bottom: -10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    <span class="title" style="float: left; width:45px; color: #000; font-weight: bold; line-height: 30px;">URL: </span>
+                    <input class="value" style="float: left; width: calc(100% - 45px); border:1px solid #000; color: red; padding: 5px 7px; height: 30px; background: #eee" type="text" value="'.$request->url().'">
                 </span>
                 <span class="cache_key" style="display: inline-block; width: 100%; background: #fff; color: red; padding: 10px 10px 10px 0; margin-bottom: -10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-                    <span class="title" style="color: #000; font-weight: bold;">URL: </span>
-                    '.$cacheKey.'
+                    <span class="title" style="float: left; width:45px; color: #000; font-weight: bold; line-height: 30px;">KEY: </span>
+                    <input class="value" style="float: left; width: calc(100% - 45px); border:1px solid #000; color: red; padding: 5px 7px; height: 30px; background: #eee" type="text" value="'.$cacheKey.'">
                 </span>
                 <hr style="border:none;">
                 <a href="'.$request->url().'" class="cancel" style="float: left; background: #aaa; color: #fff; padding: 10px 15px; margin-top: 20px; text-decoration: none;">Cancel</a>
