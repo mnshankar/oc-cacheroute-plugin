@@ -36,8 +36,10 @@ uses "before" and "after" criteria to cache entire pages that match pattern(s) s
 | blog			  |  10			  | 2			|
 | blog/*		  |  10			  | 3			|
 
-###Note
+###Usage Notes and other information
 * Be mindful of what you are caching! This approach works best for relatively static global content.
-* You can verify functionality by appending "?debug" to a cached url. You should see the text "CACHED" preceding the page content.
-* The cache key is a slug of the request url (without any get params) i.e. str_slug($request->url()) 
-* use php artisan cache:clear to clear your cache (remember to do this when adding new route patterns!)
+* Note that __it is required to clear ALL cached content every time you add a new route pattern for the plugin to work with it__. To do this, you can use the provided button in the plugin backend panel (or "`php artisan cache:clear`" on terminal). This will clear __ALL__ the cached content, both by the plugin and the backend, if any.
+* You can verify functionality by appending "`?cache-info`" (or "`?debug`" as in previous versions of this plugin) to a cached url, e.g.: `http://mysite.com/mypage?cache-info`.
+    This would show a modal window (centered in the lower part of the screen) over your page content reflecting this specific cache related information, as well as a button to clear (__only__) this specific content cache.
+* You can also clear any specific page cached content directly appending "`?cache-clear`" to its url, e.g.: `http://mysite.com/mypage?cache-clear`
+* FYI: the cache key is a slug of the request url (without any get params) i.e. str_slug($request->url())
