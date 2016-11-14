@@ -4,9 +4,9 @@ As we are well aware, the best way to speed up a web application is to serve cac
 an interpreted language like PHP.The logic is simple - if there is no server-side processing to render a page, response is almost immediate.
 The CacheRoute plugin for OctoberCMS is designed to provide a speedup to relatively static pages by caching entire routes. 
 
-So, Let's say you indicate in the backend that you want to have "blog/*" cached. The first time you invoke a url matching this pattern,
+So, Let's say you indicate in the backend that you want to have "`blog/*`" cached. The first time you invoke a url matching this pattern,
  (i.e. cache miss) it goes through all the motions of querying the database, rendering the template and displaying the output.
-This entire page content is then cached (in whatever store you specify in your config->cache file).
+This entire page content is then cached (in whatever store you specify in your `config->cache` file).
 
 The next time the same url is requested (while the number of minutes specified in the TTL does not elapse), 
 the cached content is served. So, no database calls, no php rendering overhead, no twig rendering overhead etc. 
@@ -18,10 +18,10 @@ On boot, the CacheRoute plugin registers a global middleware that intercepts all
 uses "before" and "after" criteria to cache entire pages that match pattern(s) specified in the table. 
 
 ###Main features
-* The contents of the backend cacheroute table are cached to avoid the overhead of a database query on every route - The ttl for 
-    this cache is extracted from config->cms->urlCacheTtl (i.e. Config::get(cms.urlCacheTtl)) 
+* The contents of the backend cacheroute table are cached to avoid the overhead of a database query on every route - The ttl for
+    this cache is extracted from `config->cms->urlCacheTtl` (i.e. `Config::get(cms.urlCacheTtl)`)
 * You can specify different TTL (time to live) values for different routes
-* The plugin uses a simple Request::is('pattern') to check for a match (and cache the corresponding route)
+* The plugin uses a simple `Request::is('pattern')` to check for a match (and cache the corresponding route)
 
 ###Installation
 1. Go to __Settings > "Updates & Plugins"__ page in the Backend.
