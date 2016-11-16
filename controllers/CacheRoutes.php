@@ -2,6 +2,8 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Artisan;
+use Flash;
 
 class CacheRoutes extends Controller
 {
@@ -16,7 +18,10 @@ class CacheRoutes extends Controller
     public $requiredPermissions = [
         'serenitynow.cacheroute.manage_cacheroute'
     ];
-
+    public function onClear(){
+        Artisan::call('cache:clear');
+        Flash::success('ALL cached content cleared');
+    }
     public function __construct()
     {
         parent::__construct();
