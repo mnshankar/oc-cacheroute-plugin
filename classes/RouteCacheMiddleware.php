@@ -9,9 +9,11 @@ class RouteCacheMiddleware
 {
     public function handle(LaravelRequest $request, Closure $next)
     {
-        //bail if table does not exist or
+        //bail if backend user logged in or 
+        //table does not exist or
         //route not in the list of routes to be cached
-        if (!\Schema::hasTable('serenitynow_cacheroute_routes')||
+        if (\BackendAuth::check() ||
+            !\Schema::hasTable('serenitynow_cacheroute_routes') ||
             !($cacheRow = $this->shouldBeCached($request))) {
             return $next($request);
         }
