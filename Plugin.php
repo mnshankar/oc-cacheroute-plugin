@@ -8,7 +8,7 @@ class Plugin extends PluginBase
     {
         //add RouteCacheMiddleware as a global middleware to intercept all routes
         $this->app['Illuminate\Contracts\Http\Kernel']
-            ->pushMiddleware('SerenityNow\CacheRoute\Classes\RouteCacheMiddleware');
+             ->pushMiddleware('SerenityNow\CacheRoute\Classes\RouteCacheMiddleware');
     }
     
 }
