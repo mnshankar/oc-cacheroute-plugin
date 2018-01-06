@@ -14,8 +14,8 @@ class CacheRoute extends Model
      * Validation
      */
     public $rules = [
-        'route_pattern'=>'required|unique:serenitynow_cacheroute_routes',
-        'cache_ttl'=>'integer',
+        'route_pattern' => 'required|unique:serenitynow_cacheroute_routes',
+        'cache_ttl'     => 'integer',
     ];
 
     /*
