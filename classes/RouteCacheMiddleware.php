@@ -19,7 +19,7 @@ class RouteCacheMiddleware
             return $next($request);
         }
 
-        return $this->cacheResponse($next, $request, $cacheRow['cache_ttl']);
+        return $this->cacheResponse($request, $next, $cacheRow['cache_ttl']);
     }
 
     /**
@@ -52,7 +52,7 @@ class RouteCacheMiddleware
     protected function getCachedContent($cacheKey, $request, $content)
     {
         $isDebugRequest = $request->exists('debug') || $request->exists('cache-info');
-        if (\BackendAuth::check() && $isDebugRequest) {
+        if ($isDebugRequest) {
             return $content.'
             <div class="cache-notice" style="display: block; position: fixed; width: 50%; background: #fff; padding: 20px 30px 25px; left: 50%; border: 1px solid #aaa; margin-left: calc(-50% / 2); bottom: 10%; z-index: 500; box-shadow: 0 0 20px rgba(0,0,0,0.2); font-size: 16px; font-size: 1.6rem;">
                 <div class="title" style="margin: -20px -30px 10px; background: #999; color: #fff; padding: 10px 30px; text-align: center;">CACHED CONTENT</div>
@@ -70,7 +70,7 @@ class RouteCacheMiddleware
             </div>';
         }
 
-        if (\BackendAuth::check() && $request->exists('cache-clear')) {
+        if ($request->exists('cache-clear')) {
             \Cache::forget($cacheKey);
             return \Redirect::to($request->url());
         }
@@ -98,12 +98,12 @@ class RouteCacheMiddleware
         $cacheRouteRows = \Cache::remember('SerenityNow.Cacheroute.AllCachedRoutes',
             \Config::get('cms.urlCacheTtl'),
             function () {
-                return (array) CacheRoute::orderBy('sort_order')->get();
+                return CacheRoute::orderBy('sort_order')->get()->toArray();                
             }
         );
 
         foreach ($cacheRouteRows as $cacheRow) {
-            if ($request->is($cacheRow['route_pattern'])) {
+            if (count($cacheRow) && $request->is($cacheRow['route_pattern'])) {
                 return $cacheRow;
             }
         }
