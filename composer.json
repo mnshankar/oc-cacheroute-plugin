@@ -1,0 +1,16 @@
+{
+  "name": "serenitynow/oc-cacheroute-plugin",
+  "type": "october-plugin",
+  "description": "OctoberCMS plugin to cache contents of route",
+  "keywords": [
+    "october",
+    "octobercms",
+    "cache"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.5.9",
+    "composer/installers": "~1.0"
+  },
+  "minimum-stability": "dev"
+}
